@@ -1,0 +1,62 @@
+networks:
+  postgres-net:
+    driver: bridge
+
+volumes:
+  postgres-vol:
+    driver: local
+  pgadmin-vol:
+    driver: local
+
+services:
+  postgres:
+    container_name: postgres
+    image: postgres:16.1-alpine
+    environment:
+      - POSTGRES_DB=${POSTGRES_DB}
+      - POSTGRES_USER=${POSTGRES_USER}
+      - POSTGRES_PASSWORD=${POSTGRES_PASSWORD}!
+    volumes:
+      - postgres-vol:/var/lib/postgresql/data
+    networks:
+      - postgres-net
+    ports:
+      - ${POSTGRES_PORT}:5432
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  app:
+    container_name: app
+    build: .
+    env_file:
+      - .env
+    ports:
+      - ${APP_PORT}:${APP_PORT}
+    depends_on:
+      postgres:
+        condition: service_healthy
+    networks:
+      - postgres-net
+    restart: unless-stopped
+  pgadmin:
+    container_name: pgadmin_container
+    image: dpage/pgadmin4
+    environment:
+      - PGADMIN_DEFAULT_EMAIL=${PGADMIN_DEFAULT_EMAIL:-admin@admin.com}
+      - PGADMIN_DEFAULT_PASSWORD=${PGADMIN_DEFAULT_PASSWORD:-admin}
+      - PGADMIN_CONFIG_SERVER_MODE=False
+      - PGADMIN_CONFIG_MASTER_PASSWORD_REQUIRED=False
+    ports:
+      - "${PGADMIN_PORT:-8080}:80"
+    depends_on:
+      - postgres
+    networks:
+      - postgres-net
+    user: root
+    volumes:
+      - ./docker/pgAdmin/servers.json:/pgadmin4/servers.json
+    restart: unless-stopped
