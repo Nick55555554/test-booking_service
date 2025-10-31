@@ -1,0 +1,51 @@
+paths:
+  /api/booking/reserve:
+    post:
+      summary: Book user to event
+      tags: [Booking]
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              required: [userId, eventId]
+              properties:
+                userId:
+                  type: number
+                  example: 12345
+                eventId:
+                  type: number
+                  example: 67890
+            examples:
+              bookingExample:
+                summary: Example booking request
+                value:
+                  userId: 12345
+                  eventId: 67890
+      responses:
+        200:
+          description: Booking created successfully
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  id:
+                    type: number
+                    example: 1
+                  event_id:
+                    type: number
+                    example: 67890
+                  user_id:
+                    type: number
+                    example: 12345
+              examples:
+                successExample:
+                  summary: Example booking response
+                  value:
+                    id: 1
+                    event_id: 67890
+                    user_id: 12345
+        500:
+          description: Internal server error
