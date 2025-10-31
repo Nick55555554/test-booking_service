@@ -2,6 +2,7 @@
     "semi": true,
     "tabWidth": 4,
     "bracketSpacing": false,
+    "singleQuote": true,
     "overrides": [
         {
             "files": "*.yaml",
