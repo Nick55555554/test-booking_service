@@ -4,17 +4,17 @@
   "description": "",
   "main": "app.ts",
   "_moduleAliases": {
-    "@": "dist"
+    "@": "dist/src"
   },
   "scripts": {
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "dev": "nodemon -r module-alias/register  src/app.ts",
     "build": "tsc",
-    "start": "node -r module-alias/register dist/app.js",
+    "start": "node -r module-alias/register dist/src/app.js",
     "migration:make": "knex migrate:make --knexfile src/config/db/knexfile.ts",
-    "migrate:latest": "knex migrate:latest --knexfile /app/dist/config/db/knexfile.js",
-    "migrate:down": " knex migrate:down --knexfile /app/dist/config/db/knexfile.js",
+    "migrate:latest": "knex migrate:latest --knexfile /app/dist/src/config/db/knexfile.js",
+    "migrate:down": " knex migrate:down --knexfile /app/dist/src/config/db/knexfile.js",
     "test": "jest"
   },
   "repository": {
