@@ -14,6 +14,29 @@
 - Swagger для документации
 - Jest для тестирования
 
+## Настройка окружения
+
+Перед первым запуском создайте файл `.env` в корне проекта и скопируйте в него настройки из `.env.local`:
+
+```bash
+# Создаем .env файл
+cp .env.local .env
+```
+
+Содержимое `.env` файла:
+```env
+DB_HOST=postgres
+DB_PORT=5432
+DB_NAME=booking_db
+DB_USER=postgres
+DB_PASSWORD=postgres
+
+SERVER_PORT=3000
+
+PGADMIN_DEFAULT_EMAIL=admin@admin.com
+PGADMIN_DEFAULT_PASSWORD=admin
+```
+
 ## Быстрый старт
 
 1. Запустите приложение:
@@ -26,15 +49,20 @@ docker-compose up
 - **Документация**: http://localhost:3000/api-docs
 - **База данных**: http://localhost:8080 (pgAdmin)
 
-### Для корректного тестирования были проведены миграции и добавлены записи в таблицу "events". Наличиствующие id вы можете посмотреть в pdAdmin:
-
 ## Использование базы данных
 
 После запуска:
 1. Откройте pgAdmin на http://localhost:8080
-2. Подключитесь к серверу (пароль: `postgres`)
+2. Подключитесь к серверу:
+   - Host: `postgres`
+   - Port: `5432`
+   - Username: `postgres`
+   - Password: `postgres`
 3. Перейдите в Schemas → Tables
-4. Для просмотра данных: ПКМ на таблицу → View/Edit Data
+4. Для просмотра данных: ПКМ на таблицу → View/Edit Data → All Rows
+
+**Важно**: При первом запуске в таблице `events` автоматически создаются тестовые мероприятия:
+Используйте эти ID для тестирования бронирования.
 
 ## API Endpoints
 
