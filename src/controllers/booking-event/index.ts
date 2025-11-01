@@ -1,8 +1,14 @@
 import { Request, Response } from 'express';
 
-import { BookEvent as BookEventRequest, BookingService } from '@/services/booking-service';
+import {
+    BookEvent as BookEventRequest,
+    BookingService,
+} from '@/services/booking-service';
 
-export const BookingEventController = async (req: Request<BookEventRequest>, res: Response) => {
+export const BookingEventController = async (
+    req: Request<BookEventRequest>,
+    res: Response,
+) => {
     const { body } = req;
 
     const { eventId, userId } = body;
