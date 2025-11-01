@@ -17,8 +17,10 @@ export class BookingModel extends Model implements Booking {
         return event as unknown as EventModel;
     }
 
-    static async exists(eventId: number, userId: number): Promise<boolean> {
-        const booking = await this.query().where({ event_id: eventId, user_id: userId }).first();
+    static async exists(eventId: number, userId: string): Promise<boolean> {
+        const booking = await this.query()
+            .where({ event_id: eventId, user_id: userId })
+            .first();
         return Boolean(booking);
     }
 }

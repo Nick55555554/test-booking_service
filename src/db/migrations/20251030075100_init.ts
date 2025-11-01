@@ -13,7 +13,11 @@ export async function up(knex: Knex): Promise<void> {
             table.string('user_id', 255).notNullable();
             table.timestamps(true, true);
 
-            table.foreign('event_id').references('id').inTable('events').onDelete('CASCADE');
+            table
+                .foreign('event_id')
+                .references('id')
+                .inTable('events')
+                .onDelete('CASCADE');
             table.index(['event_id']);
             table.index(['user_id']);
         }),
@@ -21,5 +25,8 @@ export async function up(knex: Knex): Promise<void> {
 }
 
 export async function down(knex: Knex): Promise<void> {
-    await Promise.all([knex.schema.dropTable('bookings'), knex.schema.dropTable('events')]);
+    await Promise.all([
+        knex.schema.dropTable('bookings'),
+        knex.schema.dropTable('events'),
+    ]);
 }

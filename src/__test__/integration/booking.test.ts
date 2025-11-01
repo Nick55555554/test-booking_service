@@ -24,7 +24,7 @@ describe('BookingEventController Integration Test', () => {
         const mockBooking = {
             id: 1,
             event_id: 1,
-            user_id: 123,
+            user_id: '123',
             created_at: new Date(Date.now()),
         };
 
@@ -40,7 +40,7 @@ describe('BookingEventController Integration Test', () => {
         expect(response.body.booking).toMatchObject({
             id: 1,
             event_id: 1,
-            user_id: 123,
+            user_id: '123',
         });
         expect(response.body.message).toBe('Booking created successfully');
         expect(mockBookEvent).toHaveBeenCalledWith({

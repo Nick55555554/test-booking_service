@@ -3,7 +3,7 @@ import { Booking } from '@/typings/booking';
 
 export interface BookEvent {
     eventId: number;
-    userId: number;
+    userId: string;
 }
 
 export class BookingService {
@@ -39,12 +39,14 @@ export class BookingService {
 
             return { booking };
         } catch (error) {
-            console.error('Real error in bookEvent:', error); // ← вот где реальная ошибка!
+            console.error('Real error in bookEvent:', error);
             throw new Error(`Error with booking event: ${error}`);
         }
     }
 
-    static async cancelBooking(bookingId: number): Promise<{ success: boolean; message?: string }> {
+    static async cancelBooking(
+        bookingId: number,
+    ): Promise<{ success: boolean; message?: string }> {
         try {
             const booking = await BookingModel.query().findById(bookingId);
             if (!booking) {
@@ -59,7 +61,9 @@ export class BookingService {
     }
 
     static async getUserBookings(userId: string): Promise<BookingModel[]> {
-        return BookingModel.query().where({ user_id: userId }).withGraphFetched('event');
+        return BookingModel.query()
+            .where({ user_id: userId })
+            .withGraphFetched('event');
     }
 
     static async getEventBookings(eventId: number): Promise<BookingModel[]> {

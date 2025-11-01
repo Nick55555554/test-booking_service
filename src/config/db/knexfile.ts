@@ -1,6 +1,12 @@
 import path from 'path';
 
-const { POSTGRES_HOST, POSTGRES_DB, POSTGRES_PORT, POSTGRES_USER, POSTGRES_PASSWORD } = process.env;
+const {
+    POSTGRES_HOST,
+    POSTGRES_DB,
+    POSTGRES_PORT,
+    POSTGRES_USER,
+    POSTGRES_PASSWORD,
+} = process.env;
 
 module.exports = {
     client: 'pg',

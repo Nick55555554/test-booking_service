@@ -9,7 +9,12 @@ import tseslint from 'typescript-eslint';
 
 const baseConfig = tseslint.config(
     {
-        ignores: ['eslint.config.mjs', 'dist/**', 'node_modules/**', 'jest.config.ts'],
+        ignores: [
+            'eslint.config.mjs',
+            'dist/**',
+            'node_modules/**',
+            'jest.config.ts',
+        ],
     },
     eslint.configs.recommended,
     ...tseslint.configs.recommended,
@@ -56,7 +61,7 @@ const baseConfig = tseslint.config(
                     singleQuote: true,
                     semi: true,
                     trailingComma: 'all',
-                    printWidth: 100,
+                    printWidth: 80,
                     tabWidth: 4,
                     useTabs: false,
                     bracketSpacing: true,
@@ -78,8 +83,14 @@ const baseConfig = tseslint.config(
 
             '@stylistic/array-bracket-spacing': ['error', 'never'],
             '@stylistic/object-curly-spacing': ['error', 'always'],
-            '@stylistic/comma-spacing': ['error', { before: false, after: true }],
-            '@stylistic/keyword-spacing': ['error', { before: true, after: true }],
+            '@stylistic/comma-spacing': [
+                'error',
+                { before: false, after: true },
+            ],
+            '@stylistic/keyword-spacing': [
+                'error',
+                { before: true, after: true },
+            ],
 
             'simple-import-sort/imports': 'error',
             'simple-import-sort/exports': 'error',
@@ -92,7 +103,12 @@ const baseConfig = tseslint.config(
 
 const testConfig = tseslint.config({
     files: ['**/*.e2e-spec.ts', '**/*.test.ts'],
-    ignores: ['eslint.config.mts', 'jest.config.ts', '**/dist/**', '**/node_modules/**'],
+    ignores: [
+        'eslint.config.mts',
+        'jest.config.ts',
+        '**/dist/**',
+        '**/node_modules/**',
+    ],
     rules: {
         '@typescript-eslint/no-unused-vars': 'off',
         'no-console': 'off',
